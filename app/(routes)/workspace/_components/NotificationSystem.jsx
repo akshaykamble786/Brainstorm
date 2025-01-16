@@ -56,7 +56,7 @@ const NotificationSystem = ({ children }) => {
                     </div>
                     {inboxNotifications.length === 0 && (
                         <div className='bg-background text-foreground p-6'>
-                            There aren't any notifications yet.
+                            No notifications yet.
                         </div>
                     )}
                     {inboxNotifications.map((inboxNotification) => (

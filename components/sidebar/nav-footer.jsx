@@ -36,9 +36,8 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { SignOutButton, useClerk, UserButton, useUser } from "@clerk/nextjs";
+import { useClerk, UserButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { ThemeToggle } from "@/app/(routes)/dashboard/_components/ThemeToggle";
 
 export default function Navfooter() {
     const { user } = useUser();

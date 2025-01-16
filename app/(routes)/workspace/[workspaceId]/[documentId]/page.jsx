@@ -31,7 +31,7 @@ export default function WorkspaceDocument({ params }) {
   }, [user, params.workspaceId, router]);
 
   if (loading) {
-    return <div>Loading...</div>; // Add your loading component
+    return <div>Loading...</div>;
   }
 
   return (

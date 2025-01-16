@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-function CommentBox({children}) {
+export const Comments = ({children}) => {
   const { threads } = useThreads();
 
   return (
@@ -29,5 +29,3 @@ function CommentBox({children}) {
     </Popover>
   );
 }
-
-export default CommentBox;

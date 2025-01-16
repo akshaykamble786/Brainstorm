@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -19,11 +19,15 @@ import { db } from "@/config/FirebaseConfig";
 import { Button } from "../ui/button";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { Calendar } from "@/components/ui/calendar";
 
-const MAX_WORKSPACES = process.env.NEXT_PUBLIC_MAX_WORKSPACE_COUNT
+const MAX_WORKSPACES = process.env.NEXT_PUBLIC_MAX_WORKSPACE_COUNT;
 
 export function NavSecondary({ items, ...props }) {
   const [workspaceCount, setWorkspaceCount] = useState(0);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [date, setDate] = useState(new Date())
+
   const { user } = useUser();
   const router = useRouter();
 
@@ -31,8 +35,8 @@ export function NavSecondary({ items, ...props }) {
     if (user?.primaryEmailAddress?.emailAddress) {
       const getWorkspaceCount = () => {
         const q = query(
-          collection(db, 'workspaces'),
-          where('createdBy', '==', user.primaryEmailAddress.emailAddress)
+          collection(db, "workspaces"),
+          where("createdBy", "==", user.primaryEmailAddress.emailAddress)
         );
 
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -46,6 +50,10 @@ export function NavSecondary({ items, ...props }) {
       return () => unsubscribe();
     }
   }, [user]);
+
+  const handleCalendarClick = () => {
+    setShowCalendar(!showCalendar);
+  };
 
   return (
     <SidebarGroup {...props}>
@@ -65,20 +73,42 @@ export function NavSecondary({ items, ...props }) {
                     <div className="flex flex-col justify-between items-center mb-2 space-y-3">
                       <div className="text-left">
                         <h2 className="text-sm font-light">
-                          <strong>{workspaceCount}</strong> out of <strong>{MAX_WORKSPACES}</strong> workspaces used
+                          <strong>{workspaceCount}</strong> out of{" "}
+                          <strong>{MAX_WORKSPACES}</strong> workspaces used
                         </h2>
-                        <h5 className="text-xs font-light text-gray-500">Only 5 documents per workspace</h5>
-                      </ div>
+                        <h5 className="text-xs font-light text-gray-500">
+                          Only 5 documents per workspace
+                        </h5>
+                      </div>
                       <Progress
                         value={(workspaceCount / MAX_WORKSPACES) * 100}
                         className="h-2 w-64 rounded-3xl"
                       />
-                      <Button variant="default" className="w-full" onClick={() => router.push('/upgrade')}>
+                      <Button
+                        variant="default"
+                        className="w-full"
+                        onClick={() => router.push("/upgrade")}
+                      >
                         Upgrade to Pro
                       </Button>
                     </div>
                   </PopoverContent>
                 </Popover>
+              ) : item.title === "Calendar" ? (
+                <>
+                  <SidebarMenuButton onClick={handleCalendarClick}>
+                    <item.icon />
+                    <span>{item.title}</span>
+                  </SidebarMenuButton>
+                  {showCalendar && (
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={setDate}
+                      className="rounded-md border bg-background text-foreground"
+                    />
+                  )}
+                </>
               ) : (
                 <SidebarMenuButton asChild>
                   <Link href={item.url}>
@@ -87,6 +117,7 @@ export function NavSecondary({ items, ...props }) {
                   </Link>
                 </SidebarMenuButton>
               )}
+
               {item.badge && <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>}
             </SidebarMenuItem>
           ))}

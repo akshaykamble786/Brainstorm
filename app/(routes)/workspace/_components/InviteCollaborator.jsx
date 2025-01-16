@@ -6,11 +6,9 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { useSelf } from '@liveblocks/react/suspense';
 import React, { useState } from 'react'
-import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -26,13 +24,6 @@ const InviteCollaborator = ({ roomId, collaborators, creatorId, currentUserType 
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <Button className="gradient-blue flex h-9 gap-1 px-4">
-          <p className="mr-1 hidden sm:block">
-            Share
-          </p>
-        </Button>
-      </DialogTrigger>
       <DialogContent className="shad-dialog">
         <DialogHeader>
           <DialogTitle>Manage who can view this project</DialogTitle>

@@ -1,11 +1,7 @@
 import { adminDb } from "@/config/FirebaseAdminConfig";
 import { currentUser } from "@clerk/nextjs/server";
-import { Liveblocks } from "@liveblocks/node";
+import { liveblocks } from "@/lib/liveblocks";
 import { NextResponse } from "next/server";
-
-export const liveblocks = new Liveblocks({
-  secret: process.env.LIVEBLOCKS_SK,
-});
 
 export async function POST(request) {
   try {

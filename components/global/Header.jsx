@@ -191,3 +191,5 @@ const ListItem = React.forwardRef(({ className, title, children, ...props }, ref
     </li>
   );
 });
+
+ListItem.displayName = 'ListItem';

@@ -1,8 +1,3 @@
-import { ExplainIcon } from "@/app/icons/ExplainIcon";
-import { LengthenIcon } from "@/app/icons/LengthenIcon";
-import { ShortenIcon } from "@/app/icons/ShortenIcon";
-import { SummariseIcon } from "@/app/icons/SummariseIcon";
-import { TranslateIcon } from "@/app/icons/TranslateIcon";
 import {
     CheckCheck,
     Mountain,
@@ -11,6 +6,12 @@ import {
     RefreshCcwDot,
     Speaker,
 } from "lucide-react";
+
+import { ExplainIcon} from "../../../app/_icons/ExplainIcon"
+import { SummariseIcon } from "../../../app/_icons/SummariseIcon"
+import { LengthenIcon} from "../../../app/_icons/LengthenIcon"
+import { ShortenIcon} from "../../../app/_icons/ShortenIcon"
+import { TranslateIcon} from "../../../app/_icons/TranslateIcon"
 
 export const languages = [
     "Arabic",

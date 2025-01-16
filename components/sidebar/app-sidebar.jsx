@@ -8,6 +8,7 @@ import {
   Sparkles,
   Trash2,
   Calendar,
+  Users2Icon,
 } from "lucide-react"
 
 import { NavMain } from "./nav-main"
@@ -32,9 +33,9 @@ const data = {
       icon: Search,
     },
     {
-      title: "Create with AI",
-      url: "#",
-      icon: Sparkles,
+      title: "Invite Members",
+      url: "",
+      icon: Users2Icon,
     },
     {
       title: "Templates",

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import CoverOption from '../_shared/CoverOption';
+import CoverOption from './CoverOption';
 import Image from 'next/image';
 import { Loader2Icon, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';

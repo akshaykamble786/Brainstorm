@@ -27,8 +27,6 @@ import Link from "next/link"
 import { ToastAction } from "../ui/toast"
 import WorkspaceOptions from '../../app/(routes)/workspace/_components/WorkspaceOptions'
 
-const MAX_FILE = process.env.NEXT_PUBLIC_MAX_FILE_COUNT
-
 export function NavWorkspaces({ params }) {
   const [workspaces, setWorkspaces] = useState([])
   const [loading, setLoading] = useState(false)
@@ -84,7 +82,7 @@ export function NavWorkspaces({ params }) {
 
   const createNewDocument = async (workspaceId) => {
     const workspace = workspaces.find(w => w.id === workspaceId)
-    if (workspace?.documents?.length >= MAX_FILE) {
+    if (workspace?.documents?.length >= process.env.NEXT_PUBLIC_MAX_FILE_COUNT) {
       toast({
         title: "Document Limit Reached",
         description: "You've reached the maximum number of documents for the free plan.",
@@ -112,10 +110,10 @@ export function NavWorkspaces({ params }) {
         documentName: "Untitled Document",
       })
 
-      await setDoc(doc(db, 'documentOutput', docId), {
-        docId,
-        output: []
-      })
+      // await setDoc(doc(db, 'documentOutput', docId), {
+      //   docId,
+      //   output: []
+      // })
 
       router.push(`/workspace/${workspaceId}/${docId}`)
     } catch (error) {
@@ -132,7 +130,7 @@ export function NavWorkspaces({ params }) {
   const deleteDocument = async (documentId) => {
     try {
       await deleteDoc(doc(db, 'documents', documentId))
-      await deleteDoc(doc(db, 'documentOutput', documentId))
+      // await deleteDoc(doc(db, 'documentOutput', documentId))
 
       toast({
         title: "Success",

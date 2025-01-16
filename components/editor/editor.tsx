@@ -9,7 +9,7 @@ import {
   EditorRoot,
 } from "novel";
 import { ImageResizer, handleCommandNavigation } from "novel/extensions";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { defaultExtensions } from "./extensions";
 import { ColorSelector } from "./selectors/color-selector";
 import { LinkSelector } from "./selectors/link-selector";
@@ -26,7 +26,7 @@ import { Threads } from "./threads";
 import { AddCommentSelector } from "./selectors/add-comment-selector";
 import { FontSelector } from "./selectors/font-selector";
 
-export const AdvancedEditor = ({ setCharsCount }) => {
+export const Editor = ({ setCharsCount , onContentChange, onEditorReady}) => {
   const liveblocks = useLiveblocksExtension({
     offlineSupport_experimental: true,
   });
@@ -37,6 +37,17 @@ export const AdvancedEditor = ({ setCharsCount }) => {
   const [openAI, setOpenAI] = useState(false);
 
   const extensions = [...defaultExtensions, slashCommand, liveblocks];
+
+  const handleUpdate = useCallback(({ editor }) => {
+    const textContent = editor.getText();
+    const htmlContent = editor.getHTML();
+    setCharsCount(editor.storage.characterCount.words());
+    onContentChange({ html: htmlContent, text: textContent });
+    
+    if (onEditorReady && editor) {
+      onEditorReady(editor);
+    }
+  }, [setCharsCount, onContentChange, onEditorReady]);
 
   return (
     <div className="relative w-full max-w-screen-lg">
@@ -57,10 +68,7 @@ export const AdvancedEditor = ({ setCharsCount }) => {
                 "prose dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full",
             },
           }}
-          onUpdate={({ editor }) => {
-            const wordCount = editor.storage.characterCount.words();
-            setCharsCount(wordCount);
-          }}
+          onUpdate={handleUpdate}
           slotAfter={<ImageResizer />}
           immediatelyRender={false}
         >

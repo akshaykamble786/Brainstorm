@@ -3,16 +3,17 @@
 import { Badge } from "@/components/ui/badge";
 import React from "react";
 import DynamicBreadcrumb from "./CustomBreadcrumb";
-import InviteCollaborator from "./InviteCollaborator";
 import { Bell } from "lucide-react";
 import NotificationSystem from "./NotificationSystem";
-import useOwner from "../../../../hooks/use-owner";
 import { useSyncStatus } from "@liveblocks/react/suspense";
 import { MessageSquareText, X } from "lucide-react";
-import CommentBox from "./CommentSection";
+import { Comments } from "./CommentSection";
+import { ClientSideSuspense } from "@liveblocks/react/suspense";
+import { Loader2Icon } from "lucide-react";
+
+import { Avataars } from "@/components/Avataars";
 
 const DocumentHeader = ({ workspaceName }) => {
-  const isOwner = useOwner();
   const syncStatus = useSyncStatus({ smooth: true });
 
   return (
@@ -23,15 +24,17 @@ const DocumentHeader = ({ workspaceName }) => {
       </div>
 
       <div className="flex items-center space-x-5">
+        <ClientSideSuspense fallback={<Loader2Icon />}>
+          <Avataars />
+        </ClientSideSuspense>
+
         <NotificationSystem>
           <Bell className="size-5 cursor-pointer" />
         </NotificationSystem>
 
-        <CommentBox>
-          <MessageSquareText className="size-6 cursor-pointer"/>
-        </CommentBox>
-    
-        {isOwner && <InviteCollaborator />}
+        <Comments>
+          <MessageSquareText className="size-6 cursor-pointer" />
+        </Comments>
 
         {syncStatus === "synchronizing" ? (
           <Badge variant="secondary" className="bg-orange-600">
