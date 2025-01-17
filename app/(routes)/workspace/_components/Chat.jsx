@@ -32,6 +32,8 @@ import {
 import { useUser } from "@clerk/nextjs";
 import { useToast } from "@/hooks/use-toast";
 import { chatService } from "@/lib/chat-service";
+import { rateLimitService } from "@/lib/rate-limit"
+import { ToastAction } from "@/components/ui/toast";
 
 export function Chat({ editorContent }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -136,6 +138,38 @@ export function Chat({ editorContent }) {
       }
     }
   }, [messages]);
+
+  useEffect(() => {
+    const initializeChat = async () => {
+      if (user && !currentChatId && chats.length === 0) {
+        try {
+          const initialMessages = [
+            {
+              id: `msg-${Date.now()}-assistant`,
+              role: 'assistant',
+              content: `Hi ${user.firstName}! How can I help you with your document?`,
+              createdAt: Date.now()
+            }
+          ];
+          
+          const chatId = await chatService.createChat(user.id);
+          setCurrentChatId(chatId);
+          
+          await chatService.updateChat(chatId, initialMessages);
+          setMessages(initialMessages);
+        } catch (error) {
+          console.error("Error creating initial chat:", error);
+          toast({
+            title: "Error initializing chat",
+            description: "Please try refreshing the page",
+            variant: "destructive",
+          });
+        }
+      }
+    };
+
+    initializeChat();
+  }, [user, currentChatId, chats.length]);
 
   useEffect(() => {
     let unsubscribe;
@@ -243,31 +277,55 @@ export function Chat({ editorContent }) {
     setShowChatHistory(false);
   };
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (!currentChatId) {
-        const chatId = await chatService.createChat(user.id, input);
-        setCurrentChatId(chatId);
-      }
-
-      await handleSubmit(e);
-    } catch (error) {
-      console.error("Error submitting form:", error);
+const handleFormSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const { allowed, remainingMessages } = await rateLimitService.checkAndIncrementUsage(user.id);
+    
+    if (!allowed) {
       toast({
-        title: "Failed to send message",
-        description: "Please try again",
+        title: "Daily messages limit reached",
+        description: "You're out of free messages. Upgrade to more access",
         variant: "destructive",
+        action: (
+          <ToastAction altText="Upgrade to Pro" onClick={() => router.push('/upgrade')}>
+            Upgrade to Pro
+          </ToastAction>
+        ),
+      });
+      return;
+    }
+
+    if (!currentChatId) {
+      const chatId = await chatService.createChat(user.id, input);
+      setCurrentChatId(chatId);
+    }
+
+    await handleSubmit(e);
+
+    if (remainingMessages <= 2) {
+      toast({
+        title: "Message limit reminder",
+        description: `You have ${remainingMessages} messages remaining today`,
+        variant: "default",
       });
     }
-  };
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    toast({
+      title: "Failed to send message",
+      description: "Please try again",
+      variant: "destructive",
+    });
+  }
+};
 
   const filteredChats = chats.filter((chat) =>
     chat.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
-    <div className="fixed bottom-4 right-4">
+    <div className="fixed bottom-4 right-4 z-[99]">
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <Button className="rounded-lg">
