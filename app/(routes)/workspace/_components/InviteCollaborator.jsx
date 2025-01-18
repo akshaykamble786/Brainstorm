@@ -6,6 +6,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog"
 import { useSelf } from '@liveblocks/react/suspense';
 import React, { useState } from 'react'
@@ -24,6 +25,11 @@ const InviteCollaborator = ({ roomId, collaborators, creatorId, currentUserType 
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger>
+          <Button className="btn btn-primary" onClick={() => setOpen(true)}>
+            Share
+          </Button>
+        </DialogTrigger>
       <DialogContent className="shad-dialog">
         <DialogHeader>
           <DialogTitle>Manage who can view this project</DialogTitle>

@@ -10,11 +10,13 @@ import { MessageSquareText, X } from "lucide-react";
 import { Comments } from "./CommentSection";
 import { ClientSideSuspense } from "@liveblocks/react/suspense";
 import { Loader2Icon } from "lucide-react";
-
+import useOwner from "@/hooks/use-owner"
 import { Avataars } from "@/components/Avataars";
+import InviteCollaborator from "../_components/InviteCollaborator"
 
 const DocumentHeader = ({ workspaceName }) => {
   const syncStatus = useSyncStatus({ smooth: true });
+  const isOwner = useOwner();
 
   return (
     <div className="sticky flex items-center justify-between p-[15px] border-b">
@@ -35,6 +37,8 @@ const DocumentHeader = ({ workspaceName }) => {
         <Comments>
           <MessageSquareText className="size-6 cursor-pointer" />
         </Comments>
+
+        {isOwner && <InviteCollaborator />}
 
         {syncStatus === "synchronizing" ? (
           <Badge variant="secondary" className="bg-orange-600">
