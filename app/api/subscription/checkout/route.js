@@ -29,8 +29,7 @@ export async function POST() {
       allow_promotion_codes: true,
       subscription_data: { trial_from_plan: true },
       ui_mode: "embedded",
-      success_url: `${process.env.HOST_URL}/dashboard`,
-      cancel_url: `${process.env.HOST_URL}/dashboard`,
+      return_url: `${process.env.HOST_URL}/dashboard`,
     });
 
     return NextResponse.json({ clientSecret: session.client_secret });
