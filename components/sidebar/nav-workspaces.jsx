@@ -88,7 +88,7 @@ export function NavWorkspaces({ params }) {
         description: "You've reached the maximum number of documents for the free plan.",
         variant: "default",
         action: (
-          <ToastAction altText="Upgrade to Pro" onClick={() => router.push('/upgrade')}>
+          <ToastAction altText="Upgrade to Pro" onClick={() => router.push('/pricing')}>
             Upgrade to Pro
           </ToastAction>
         ),

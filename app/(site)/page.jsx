@@ -2,10 +2,10 @@ import TitleSection from "@/components/landing-page/TitleSection";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
-import Banner from "../../public/appBanner.png"
+import Banner from "../../public/appBanner.png";
 import cal from "../../public/cal.png";
-import Check from "../../public/icons/check.svg"
-import Diamond from "../../public/icons/diamond.svg"
+import Check from "../../public/icons/check.svg";
+import Diamond from "../../public/icons/diamond.svg";
 import { CLIENTS, PRICING_CARDS, USERS, PRICING_PLANS } from "@/lib/constants";
 import { randomUUID } from "crypto";
 import { twMerge } from "tailwind-merge";
@@ -13,6 +13,7 @@ import clsx from "clsx";
 import { CustomCard } from "@/components/landing-page/CustomCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import PaymentButton from "@/components/payment-button"
 
 const HomePage = () => {
   return (
@@ -25,12 +26,18 @@ const HomePage = () => {
         />
         <div className="flex gap-4">
           <div className="bg-white p-[2px] mt-6 rounded-xl bg-gradient-to-r from-primary to-brand-primaryBlue sm:w-[200px]">
-            <Button variant="btn-primary" className="w-full rounded-[10px] p-6 text-lg bg-background">
+            <Button
+              variant="btn-primary"
+              className="w-full rounded-[10px] p-6 text-lg bg-background"
+            >
               Get Started &rarr;
             </Button>
           </div>
           <div className="bg-white p-[2px] mt-6 rounded-xl bg-gradient-to-r from-primary to-brand-primaryBlue sm:w-[200px]">
-            <Button variant="btn-primary" className="w-full rounded-[10px] p-6 text-lg bg-background">
+            <Button
+              variant="btn-primary"
+              className="w-full rounded-[10px] p-6 text-lg bg-background"
+            >
               Read docs
             </Button>
           </div>
@@ -196,7 +203,7 @@ const HomePage = () => {
                     text-2xl
                 "
                   >
-                    &#8377;{card.price}
+                    ${card.price}
                   </span>
                   {+card.price > 0 ? (
                     <span className="dark:text-washed-purple-800 ml-1">
@@ -205,11 +212,11 @@ const HomePage = () => {
                   ) : (
                     ""
                   )}
-                  <Button variant="default" className="whitespace-nowrap w-full mt-4 text-sm">
+                  <PaymentButton>
                     {card.planType === PRICING_PLANS.proplan
                       ? "Go Pro"
                       : "Get Started"}
-                  </Button>
+                  </PaymentButton>
                 </CardContent>
               }
               cardFooter={

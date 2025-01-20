@@ -33,7 +33,7 @@ export default function Billing() {
               <div className="grid grid-cols-3 gap-4 text-sm">
                 <div>
                   <div className="text-gray-500">Price/Month</div>
-                  <div className="font-medium">&#8377;0</div>
+                  <div className="font-medium">$0</div>
                 </div>
                 <div>
                   <div className="text-gray-500">Included Credits</div>

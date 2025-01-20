@@ -24,7 +24,6 @@ const Header = () => {
         avatar: user?.imageUrl,
         email: user?.primaryEmailAddress?.emailAddress,
         subscriptionStatus : false,
-        credits: 200
       })
     } catch (e) {
       console.log("user not saved")

@@ -87,7 +87,7 @@ export function NavSecondary({ items, ...props }) {
                       <Button
                         variant="default"
                         className="w-full"
-                        onClick={() => router.push("/upgrade")}
+                        onClick={() => router.push("/pricing")}
                       >
                         Upgrade to Pro
                       </Button>

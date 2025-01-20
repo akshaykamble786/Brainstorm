@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import PaymentButton from '@/components/payment-button'
 
 export default function Pricing() {
     return (
@@ -29,7 +30,7 @@ export default function Pricing() {
                             <p className="text-sm text-gray-400">Perfect for small projects</p>
                         </div>
                         <div className="mb-6">
-                            <span className="text-3xl font-bold">&#8377;0</span>
+                            <span className="text-3xl font-bold">$0</span>
                             <span className="text-gray-400">/month</span>
                         </div>
                         <ul className="space-y-3 mb-6">
@@ -69,7 +70,7 @@ export default function Pricing() {
                             <p className="text-sm text-gray-400">Perfect for growing teams</p>
                         </div>
                         <div className="mb-6">
-                            <span className="text-3xl font-bold">&#8377;59</span>
+                            <span className="text-3xl font-bold">$9</span>
                             <span className="text-gray-400">/month</span>
                         </div>
                         <div className="mb-6">
@@ -94,9 +95,9 @@ export default function Pricing() {
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                            <Link href="/upgrade">Upgrade to Pro</Link>
-                        </Button>
+                        <PaymentButton>
+                            Upgrade to Pro
+                        </PaymentButton>
                     </CardFooter>
                 </Card>
             </div>

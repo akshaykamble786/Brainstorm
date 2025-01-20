@@ -288,7 +288,7 @@ const handleFormSubmit = async (e) => {
         description: "You're out of free messages. Upgrade to more access",
         variant: "destructive",
         action: (
-          <ToastAction altText="Upgrade to Pro" onClick={() => router.push('/upgrade')}>
+          <ToastAction altText="Upgrade to Pro" onClick={() => router.push('/pricing')}>
             Upgrade to Pro
           </ToastAction>
         ),

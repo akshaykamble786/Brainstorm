@@ -2,25 +2,12 @@
 
 import * as React from "react"
 import {
-    AudioWaveform,
     BadgeCheck,
-    Bell,
-    BookOpen,
-    Bot,
     ChevronsUpDown,
-    Command,
     CreditCard,
     DollarSign,
-    Frame,
-    GalleryVerticalEnd,
     LogOut,
-    Map,
-    Moon,
-    PieChart,
-    Settings2,
     Sparkles,
-    SquareTerminal,
-    SunMoon,
 } from "lucide-react"
 import {
     DropdownMenu,
@@ -79,7 +66,7 @@ export default function Navfooter() {
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem onClick={() => router.push('/upgrade')}>
+                            <DropdownMenuItem onClick={() => router.push('/pricing')}>
                                 <Sparkles className="mr-1.5 size-4" />
                                 Upgrade to Pro
                             </DropdownMenuItem>

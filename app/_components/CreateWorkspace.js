@@ -51,7 +51,7 @@ const CreateWorkspace = () => {
           description: "You've reached the maximum number of workspaces for the free plan.",
           variant: "default",
           action: (
-            <ToastAction altText="Upgrade to Pro" onClick={() => router.push('/upgrade')}>
+            <ToastAction altText="Upgrade to Pro" onClick={() => router.push('/pricing')}>
               Upgrade to Pro
             </ToastAction>
           ),
