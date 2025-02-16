@@ -13,7 +13,6 @@ import clsx from "clsx";
 import { CustomCard } from "@/components/landing-page/CustomCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CardContent, CardDescription, CardTitle } from "@/components/ui/card";
-import PaymentButton from "@/components/payment-button"
 
 const HomePage = () => {
   return (
@@ -212,11 +211,11 @@ const HomePage = () => {
                   ) : (
                     ""
                   )}
-                  <PaymentButton>
+                  <Button variant="default">
                     {card.planType === PRICING_PLANS.proplan
                       ? "Go Pro"
                       : "Get Started"}
-                  </PaymentButton>
+                  </Button>
                 </CardContent>
               }
               cardFooter={

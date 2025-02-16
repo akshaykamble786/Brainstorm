@@ -4,7 +4,7 @@ import Logo from '@/components/global/Logo'
 import { OrganizationSwitcher, useAuth, UserButton, useUser } from '@clerk/nextjs'
 import React, { useEffect } from 'react'
 import { ThemeToggle } from './ThemeToggle';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '@/config/FirebaseConfig';
 
 const Header = () => {
@@ -16,17 +16,41 @@ const Header = () => {
     user && saveUserData();
   },[user])
 
+  // const saveUserData = async () => {
+  //   const docId = user?.primaryEmailAddress?.emailAddress
+  //   try {
+  //     await setDoc(doc(db, 'users', docId), {
+  //       name: user?.fullName,
+  //       avatar: user?.imageUrl,
+  //       email: user?.primaryEmailAddress?.emailAddress,
+  //     }, { merge: true })  // Add merge: true option
+  //   } catch (e) {
+  //     console.log("Error saving user:", e)
+  //   }
+  // }
+
   const saveUserData = async () => {
     const docId = user?.primaryEmailAddress?.emailAddress
     try {
-      await setDoc(doc(db,'users',docId), {
-        name: user?.fullName,
-        avatar: user?.imageUrl,
-        email: user?.primaryEmailAddress?.emailAddress,
-        subscriptionStatus : false,
-      })
+      const docRef = doc(db, 'users', docId);
+      const docSnap = await getDoc(docRef);
+      
+      if (!docSnap.exists()) {
+        await setDoc(docRef, {
+          name: user?.fullName,
+          avatar: user?.imageUrl,
+          email: user?.primaryEmailAddress?.emailAddress,
+          hasActiveSubscription: false 
+        });
+      } else {
+        await updateDoc(docRef, {
+          name: user?.fullName,
+          avatar: user?.imageUrl,
+          email: user?.primaryEmailAddress?.emailAddress
+        });
+      }
     } catch (e) {
-      console.log("user not saved")
+      console.log("Error saving user:", e)
     }
   }
 

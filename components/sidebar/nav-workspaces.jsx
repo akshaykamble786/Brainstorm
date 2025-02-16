@@ -25,7 +25,6 @@ import DocumentOptions from "../../app/(routes)/workspace/_components/DocumentOp
 import { useToast } from "@/hooks/use-toast"
 import Link from "next/link"
 import { ToastAction } from "../ui/toast"
-import WorkspaceOptions from '../../app/(routes)/workspace/_components/WorkspaceOptions'
 
 export function NavWorkspaces({ params }) {
   const [workspaces, setWorkspaces] = useState([])
@@ -190,7 +189,6 @@ export function NavWorkspaces({ params }) {
                   disabled={loading}
                 >
                   <Plus />
-                  <WorkspaceOptions workspace={workspace} />
                 </SidebarMenuAction>
                 <CollapsibleContent>
                   <SidebarMenuSub>

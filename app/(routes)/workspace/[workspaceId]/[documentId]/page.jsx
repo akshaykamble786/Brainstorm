@@ -12,23 +12,23 @@ export default function WorkspaceDocument({ params }) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function checkAccess() {
-      if (!user) return;
+  // useEffect(() => {
+  //   async function checkAccess() {
+  //     if (!user) return;
 
-      const hasAccess = await checkWorkspaceAccess(
-        params.workspaceId,
-        user.primaryEmailAddress?.emailAddress
-      );
+  //     const hasAccess = await checkWorkspaceAccess(
+  //       params.workspaceId,
+  //       user.primaryEmailAddress?.emailAddress
+  //     );
 
-      if (!hasAccess) {
-        router.push('/unauthorized');
-      }
-      setLoading(false);
-    }
+  //     if (!hasAccess) {
+  //       router.push('/unauthorized');
+  //     }
+  //     setLoading(false);
+  //   }
 
-    checkAccess();
-  }, [user, params.workspaceId, router]);
+  //   checkAccess();
+  // }, [user, params.workspaceId, router]);
 
   if (loading) {
     return <div>Loading...</div>;
