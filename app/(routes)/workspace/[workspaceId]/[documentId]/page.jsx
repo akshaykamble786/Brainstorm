@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
-import { checkWorkspaceAccess } from '../../../../../lib/workspaceAccess'
+// import { checkWorkspaceAccess } from '../../../../../lib/workspaceAccess'
 import DocumentEditor from '../../_components/DocumentEditor';
 import { Room } from '@/app/Room';
 
