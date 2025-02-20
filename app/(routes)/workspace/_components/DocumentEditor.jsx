@@ -9,16 +9,18 @@ import { Chat } from "./Chat";
 const DocumentEditor = ({ params }) => {
   const [charsCount, setCharsCount] = useState(0);
   const [documentContent, setDocumentContent] = useState("");
+  const [isEditorReady, setIsEditorReady] = useState(false);
   const editorRef = useRef(null);
 
   const handleEditorReady = (editor) => {
     editorRef.current = editor;
+    setIsEditorReady(true);
   };
 
   return (
     <div className="relative">
       <DocumentHeader />
-      <DocumentInfo params={params} charsCount={charsCount} />
+      <DocumentInfo params={params} charsCount={charsCount} editor={editorRef.current} isEditorReady={isEditorReady}/>
       <div className="grid grid-cols-4">
         <div className="col-span-3">
           <ClientSideSuspense

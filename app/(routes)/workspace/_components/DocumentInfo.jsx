@@ -5,12 +5,13 @@ import EmojiPickerComponent from "@/app/_components/EmojiPickerComponent";
 import { db } from "@/config/FirebaseConfig";
 import { toast } from "@/hooks/use-toast";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { SmilePlusIcon } from "lucide-react";
+import { Clock, SmilePlusIcon } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { ThemeToggle } from "../../dashboard/_components/ThemeToggle";
+import VersionHistory from "@/components/editor/version-history";
 
-const DocumentInfo = ({ params, charsCount }) => {
+const DocumentInfo = ({ params, charsCount, editor, isEditorReady }) => {
   const [coverImage, setCoverImage] = useState("/cover.png");
   const [emoji, setEmoji] = useState();
   const [documentInfo, setDocumentInfo] = useState();
@@ -87,7 +88,7 @@ const DocumentInfo = ({ params, charsCount }) => {
           </div>
         </EmojiPickerComponent>
       </div>
-      {/* File Name, Character Count, and Mode Toggle */}
+      {/* File Name, Character Count, Version History and Mode Toggle */}
       <div className="flex items-center justify-between mt-5 px-5 ml-10 p-5">
         {/* File Name */}
         <div className="flex-1">
@@ -101,13 +102,14 @@ const DocumentInfo = ({ params, charsCount }) => {
             }
           />
         </div>
-        {/* Character Count and Mode Toggle */}
+        {/* Character Count, Version History and Mode Toggle */}
         <div className="flex items-center gap-3">
           {charsCount > 0 && (
             <div className="rounded-lg bg-accent px-2 py-1 text-sm text-muted-foreground">
               {charsCount} Words
             </div>
           )}
+          {isEditorReady && editor && <VersionHistory editor={editor} />}
           <ThemeToggle />
         </div>
       </div>

@@ -118,7 +118,7 @@ export default function Pricing() {
             <ul className="space-y-3 mb-6">
               <li className="flex items-center gap-2">
                 <Check className="w-4 h-4 text-primary" />
-                <span className="text-sm">Limited File Uploads</span>
+                <span className="text-sm">Limited file uploads</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="w-4 h-4 text-primary" />
@@ -177,7 +177,7 @@ export default function Pricing() {
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-primary" />
-                  <span className="text-sm">Increased AI usage limits</span>
+                  <span className="text-sm">Increased AI access</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-primary" />
